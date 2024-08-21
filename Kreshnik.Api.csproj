@@ -7,6 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Include="game.db">
+    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+  </Content>
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.7" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.7">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

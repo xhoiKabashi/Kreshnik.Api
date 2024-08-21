@@ -19,9 +19,18 @@ builder.Services.AddCors(options =>
 });
 
 builder.Services.AddDbContext<GameDbContext>(options =>
-    options.UseSqlite("Data Source=game.db"));
+    options.UseSqlite("Data Source=./game.db"));
+
+
+
 
 var app = builder.Build();
+using (var scope = app.Services.CreateScope())
+{
+    var dbContext = scope.ServiceProvider.GetRequiredService<GameDbContext>();
+    dbContext.Database.Migrate();
+}
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
