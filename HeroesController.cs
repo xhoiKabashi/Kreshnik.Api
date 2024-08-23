@@ -3,7 +3,6 @@ using Kreshnik.Api.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-
 namespace Kreshnik.Api.Controllers
 {
     [Route("api/[controller]")]
@@ -17,14 +16,52 @@ namespace Kreshnik.Api.Controllers
             _context = context;
         }
 
-        // GET: api/Heroes
+        // POST: api/Heroes/FetchOrCreate
+        [HttpPost("FetchOrCreate")]
+        public async Task<ActionResult<Hero>> FetchOrCreateHero([FromBody] HeroLoginRequest loginRequest)
+        {
+            var hero = await _context.Heroes.FirstOrDefaultAsync(h => h.Name == loginRequest.PlayerName);
+
+            if (hero != null)
+            {
+                if (hero.UserPin == loginRequest.Password)
+                {
+                    return Ok(hero);
+                }
+                else
+                {
+                    return Unauthorized("Incorrect PIN.");
+                }
+            }
+
+            hero = new Hero
+            {
+                Name = loginRequest.PlayerName,
+                Hp = 100,
+                Dmg = 10,
+                Armor = 5,
+                Speed = 5,
+                Level = 1,
+                Skill = "Basic Attack",
+                Points = 0,
+                Exp = 0,
+                ExpThreshold = 100,
+                UserId = loginRequest.PlayerName,
+                UserPin = loginRequest.Password
+            };
+
+            _context.Heroes.Add(hero);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction(nameof(GetHero), new { id = hero.Id }, hero);
+        }
+
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Hero>>> GetHeroes()
         {
             return await _context.Heroes.ToListAsync();
         }
 
-        // GET: api/Heroes/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Hero>> GetHero(int id)
         {
@@ -38,7 +75,6 @@ namespace Kreshnik.Api.Controllers
             return hero;
         }
 
-        // POST: api/Heroes
         [HttpPost]
         public async Task<ActionResult<Hero>> PostHero(Hero hero)
         {
@@ -48,22 +84,7 @@ namespace Kreshnik.Api.Controllers
             return CreatedAtAction(nameof(GetHero), new { id = hero.Id }, hero);
         }
 
-        // PUT: api/Heroes/5
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutHero(int id, Hero hero)
-        {
-            if (id != hero.Id)
-            {
-                return BadRequest();
-            }
 
-            _context.Entry(hero).State = EntityState.Modified;
-            await _context.SaveChangesAsync();
-
-            return NoContent();
-        }
-
-        // DELETE: api/Heroes/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteHero(int id)
         {
@@ -78,5 +99,40 @@ namespace Kreshnik.Api.Controllers
 
             return NoContent();
         }
+    
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutHero(int id, Hero hero)
+        {
+            if (id != hero.Id)
+            {
+                return BadRequest();
+            }
+
+            _context.Entry(hero).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!HeroExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return NoContent();
+        }
+
+        private bool HeroExists(int id)
+        {
+            return _context.Heroes.Any(e => e.Id == id);
+        }
+
     }
 }

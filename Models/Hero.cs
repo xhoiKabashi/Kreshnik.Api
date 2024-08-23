@@ -14,6 +14,10 @@ namespace Kreshnik.Api.Models
         public int Exp { get; set; }
         public int ExpThreshold { get; set; }
 
+        // New Property to link Hero to a user
+        public string UserId { get; set; }
+        public string UserPin { get; set; }
 
     }
+
 }
