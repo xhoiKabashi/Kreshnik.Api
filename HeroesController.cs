@@ -42,10 +42,16 @@ namespace Kreshnik.Api.Controllers
                 Armor = 5,
                 Speed = 5,
                 Level = 1,
-                Skill = "Basic Attack",
                 Points = 0,
                 Exp = 0,
                 ExpThreshold = 100,
+                HeavyCrashLevel = 0,
+                TearHealLevel = 0,
+                MilkRegeLevel = 0,
+                Wins = 0,
+                HeavyCrashDmg = 0,
+                TearHealHp = 0,
+                MilkRegeStats = 0,
                 UserId = loginRequest.PlayerName,
                 UserPin = loginRequest.Password
             };

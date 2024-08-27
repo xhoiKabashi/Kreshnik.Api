@@ -3,6 +3,7 @@ using System;
 using Kreshnik.Api.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Kreshnik.Api.Migrations
 {
     [DbContext(typeof(GameDbContext))]
-    partial class GameDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240827170438_skills")]
+    partial class skills
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.7");
@@ -35,9 +38,6 @@ namespace Kreshnik.Api.Migrations
                     b.Property<int>("ExpThreshold")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("HeavyCrashDmg")
-                        .HasColumnType("INTEGER");
-
                     b.Property<int>("HeavyCrashLevel")
                         .HasColumnType("INTEGER");
 
@@ -50,9 +50,6 @@ namespace Kreshnik.Api.Migrations
                     b.Property<int>("MilkRegeLevel")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("MilkRegeStats")
-                        .HasColumnType("INTEGER");
-
                     b.Property<string>("Name")
                         .HasColumnType("TEXT");
 
@@ -60,9 +57,6 @@ namespace Kreshnik.Api.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("Speed")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("TearHealHp")
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("TearHealLevel")
@@ -75,9 +69,6 @@ namespace Kreshnik.Api.Migrations
                     b.Property<string>("UserPin")
                         .IsRequired()
                         .HasColumnType("TEXT");
-
-                    b.Property<int>("Wins")
-                        .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 
