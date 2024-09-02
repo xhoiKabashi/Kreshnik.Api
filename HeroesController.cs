@@ -38,11 +38,11 @@ namespace Kreshnik.Api.Controllers
             {
                 Name = loginRequest.PlayerName,
                 Hp = 100,
-                Dmg = 10,
+                Dmg = 20,
                 Armor = 5,
                 Speed = 5,
                 Level = 1,
-                Points = 0,
+                Points = 5,
                 Exp = 0,
                 ExpThreshold = 100,
                 HeavyCrashLevel = 0,
