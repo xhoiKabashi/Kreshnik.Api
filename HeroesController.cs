@@ -53,7 +53,20 @@ namespace Kreshnik.Api.Controllers
                 TearHealHp = 0,
                 MilkRegeStats = 0,
                 UserId = loginRequest.PlayerName,
-                UserPin = loginRequest.Password
+                UserPin = loginRequest.Password,
+                Wounds = 0,
+                Ability1 = false,
+                Ability2 = false,
+                Ability3 = false,
+                Story1 = false,
+                Story2 = false,
+                Story3 = false,
+                Story4 = false,
+                Story5 = false,
+                Story6 = false,
+                Story7 = false,
+                Story8 = false,
+
             };
 
             _context.Heroes.Add(hero);
