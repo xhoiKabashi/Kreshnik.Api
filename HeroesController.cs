@@ -66,6 +66,17 @@ namespace Kreshnik.Api.Controllers
                 Story6 = false,
                 Story7 = false,
                 Story8 = false,
+                Story01 = false,
+                Story02 = false,
+                Story03 = false,
+                Story04 = false,
+                Story05 = false,
+                Story06 = false,
+                Story07 = false,
+                Story08 = false,
+                Story09 = false,
+
+                
 
             };
 
